@@ -23,7 +23,7 @@ public class UsuarioController {
 		return usuarioRepository.findAll();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("{id}")
 	public UsuarioModel buscarPorId(@PathVariable("id") Long id) {
 		return usuarioRepository.findOne(id);
 	}

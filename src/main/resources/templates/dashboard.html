@@ -2,25 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Beacons Dashboard</title>
+<style>
+table, th, td {
+	border: 1px solid black;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Beacons Dashboard</h1>
-	<table>
+	<table th:if="${#lists.isEmpty(beacons)}">
 		<tr>
-			<th>LINKS ÚTEIS</th>
+			<th>BANCO NÃO POPULADO</th>
 		</tr>
 		<tr>
-			<td><a href="/api/beacon">/api/beacon</a></td>
+			<td><a href="/popularBanco">Popular Banco</a></td>
+		</tr>
+	</table>
+	<table th:if="${not #lists.isEmpty(usuarios)}">
+		<tr>
+			<th colspan="2">USUÁRIOS CADASTRADOS</th>
 		</tr>
 		<tr>
-			<td><a href="/api/beacon/1">/api/beacon/1</a></td>
+			<th>ID</th>
+			<th>Login</th>
+		</tr>
+		<tr th:each="usuario : ${usuarios}">
+			<td th:text="${usuario.id}"></td>
+			<td th:text="${usuario.login}"></td>
+		</tr>
+	</table>
+	<br />
+	<table th:if="${not #lists.isEmpty(beacons)}">
+		<tr>
+			<th colspan="5">BEACONS CADASTRADOS</th>
 		</tr>
 		<tr>
-			<td><a href="/api/usuario">/api/usuario</a></td>
+			<th>UUID</th>
+			<th>Major</th>
+			<th>Minor</th>
+			<th>Descrição</th>
+			<th>Localização Atual</th>
 		</tr>
-		<tr>
-			<td><a href="/api/usuario/1">/api/usuario/1</a></td>
+		<tr th:each="beacon : ${beacons}">
+			<td th:text="${beacon.uuid}"></td>
+			<td th:text="${beacon.major}"></td>
+			<td th:text="${beacon.minor}"></td>
+			<td th:text="${beacon.descricao}"></td>
+			<td th:text="${beacon.localizacaoAtual.descricao}"></td>
 		</tr>
 	</table>
 </body>
