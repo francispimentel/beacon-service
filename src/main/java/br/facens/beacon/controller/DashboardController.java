@@ -92,8 +92,8 @@ public class DashboardController {
 
 		LocalizacaoModel loc1 = new LocalizacaoModel();
 		loc1.setDescricao("Casa do Francis");
-		loc1.setLatitude(-23.476790);
-		loc1.setLongitude(-47.435653);
+		loc1.setLatitude(-23.470492);
+		loc1.setLongitude(-47.430653);
 		LocalizacaoModel loc2 = new LocalizacaoModel();
 		loc2.setDescricao("Cantina FACENS");
 		loc2.setLatitude(-23.470349);
