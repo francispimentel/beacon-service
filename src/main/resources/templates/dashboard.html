@@ -7,10 +7,27 @@ table, th, td {
 	border: 1px solid black;
 }
 </style>
+<script>
+	function alterarLocalizacao(beaconID) {
+		var aux = document.getElementById('table_beacon_altera_localizacao_'
+				+ beaconID).value;
+		if (aux) {
+			aux = '/alterarLocalizacao/' + beaconID + '/' + aux;
+			window.location = aux;
+		} else {
+			alert("Nenhum valor inserido!");
+		}
+	}
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<h1>Beacons Dashboard</h1>
+	<p>
+		Download do aplicativo <a
+			href="https://drive.google.com/open?id=1Xf4VbAWBS8ciU1GJojhjFRSI-VidqIZN">aqui.</a> (Compatível com Android 4.4 ou superior)
+	</p>
+	<br />
 	<table th:if="${#lists.isEmpty(beacons)}">
 		<tr>
 			<th>BANCO NÃO POPULADO</th>
@@ -35,7 +52,7 @@ table, th, td {
 	<br />
 	<table th:if="${not #lists.isEmpty(beacons)}">
 		<tr>
-			<th colspan="5">BEACONS CADASTRADOS</th>
+			<th colspan="6">BEACONS CADASTRADOS</th>
 		</tr>
 		<tr>
 			<th>UUID</th>
@@ -43,6 +60,7 @@ table, th, td {
 			<th>Minor</th>
 			<th>Descrição</th>
 			<th>Localização Atual</th>
+			<th>Alterar Localização</th>
 		</tr>
 		<tr th:each="beacon : ${beacons}">
 			<td th:text="${beacon.uuid}"></td>
@@ -50,6 +68,51 @@ table, th, td {
 			<td th:text="${beacon.minor}"></td>
 			<td th:text="${beacon.descricao}"></td>
 			<td th:text="${beacon.localizacaoAtual.descricao}"></td>
+			<td><input type="text"
+				th:id="'table_beacon_altera_localizacao_' + ${beacon.id}" /> <input
+				type="submit"
+				th:onclick="'javascript:alterarLocalizacao(' + ${beacon.id} + ')'" />
+			</td>
+		</tr>
+	</table>
+	<br />
+	<table th:if="${not #lists.isEmpty(locais)}">
+		<tr>
+			<th colspan="4">LOCAIS CADASTRADOS</th>
+		</tr>
+		<tr>
+			<th>ID</th>
+			<th>Latitude</th>
+			<th>Longitude</th>
+			<th>Descrição</th>
+		</tr>
+		<tr th:each="local : ${locais}">
+			<td th:text="${local.id}"></td>
+			<td th:text="${local.latitude}"></td>
+			<td th:text="${local.longitude}"></td>
+			<td th:text="${local.descricao}"></td>
+		</tr>
+	</table>
+	<br />
+	<table th:if="${not #lists.isEmpty(histUser)}">
+		<tr>
+			<th colspan="6">HISTÓRICO DE LOCALIZAÇÃO</th>
+		</tr>
+		<tr>
+			<th>Usuário</th>
+			<th>Beacon</th>
+			<th>Localização</th>
+			<th>Latitude</th>
+			<th>Longitude</th>
+			<th>Timestamp</th>
+		</tr>
+		<tr th:each="hist : ${histUser}">
+			<td th:text="${hist.usuario.login}"></td>
+			<td th:text="${hist.beacon.descricao}"></td>
+			<td th:text="${hist.localizacao.descricao}"></td>
+			<td th:text="${hist.localizacao.latitude}"></td>
+			<td th:text="${hist.localizacao.longitude}"></td>
+			<td th:text="${hist.data}"></td>
 		</tr>
 	</table>
 </body>

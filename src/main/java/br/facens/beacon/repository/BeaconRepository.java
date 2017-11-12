@@ -1,10 +1,12 @@
 package br.facens.beacon.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.facens.beacon.model.BeaconModel;
 
 public interface BeaconRepository extends JpaRepository<BeaconModel, Long> {
-
-	BeaconModel findByUuid(String uuid);
+	
+	List<BeaconModel> findByUuid(String uuid);
 }
